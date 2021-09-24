@@ -1,0 +1,3 @@
+[submodule "pylgbst"]
+	path = pylgbst
+	url = https://github.com/undera/pylgbst.git
