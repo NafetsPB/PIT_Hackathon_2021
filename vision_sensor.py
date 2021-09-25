@@ -13,7 +13,9 @@ def callback_rgb(r, g, b):
     #print("Color: R = %s G = %s B = %s" % (r, g, b))
     if ichHabeMichBewegt==False:
         if r in range(70,80) and g in range(50,60) and b in range(55,65):
-            hub.motor_AB.timed(0.9,-0.5)#Rückwärts(Rot)   
+            hub.motor_external.angled(45,0.2)
+            hub.motor_AB.timed(0.9,0.5)#Vorwärts(Rot) 
+            hub.motor_external.angled(-55,0.2) 
             ichHabeMichBewegt=True 
         elif r in range(80,100) and g in range(80,100) and b in range(150,160):
             hub.motor_AB.timed(0.5,-0.5,0.5)#links(Gelb)
@@ -22,7 +24,9 @@ def callback_rgb(r, g, b):
             hub.motor_AB.timed(0.5,0.5,-0.5)#rechts(Blau) 
             ichHabeMichBewegt=True  
         elif r in range(20,35) and g in range(60,80)  and b in range(120,130):
-            hub.motor_AB.timed(0.9,0.5)#Vorwärts(Grün) 
+            hub.motor_external.angled(-45,0.2)
+            hub.motor_AB.timed(0.9,-0.5)#Rückwärts(Grün) 
+            hub.motor_external.angled(55,0.2)
             ichHabeMichBewegt=True  
         elif r in range(90,110) and g in range(90, 110) and b in range(110,130):
             print("white")
