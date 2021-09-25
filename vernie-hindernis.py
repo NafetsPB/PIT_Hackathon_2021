@@ -18,21 +18,24 @@ class Callbacks:
         distanceInCm = round(distance*2.54, 2) 
         # Distance multiplied by 2.54 to convert inches to cm
         print("Distance: " + str(distanceInCm))
-        if distanceInCm <= 15 and distanceInCm > 0:
+        if distanceInCm <= 20 and distanceInCm > 0:
             goOn = False
             
         else:
             goOn = True
 
-        """time.sleep(1)
-        vernie.moveForwards(time=1)
-        if distanceInCm <= 15:
-            print("stop")
-            vernie.moveBackwards(time=0.5)
-            vernie.turnLeft()
+    @staticmethod
+    def button(state):
+        #Event with state = 2 gets sent directly after state = 1?
+        global pressed
+        if state == 1:
+            print("Button has been pressed!")
+            pressed = 1
+        if state == 0:
+            print("Button has been released!")
+            pressed = 0
 
-        else:
-            vernie.moveForwards(time=0.5)"""
+
 
 
             
@@ -49,6 +52,9 @@ class FeatureDemo:
         self.movehub.vision_sensor.subscribe(Callbacks.visionColorDistance, mode=VisionSensor.DISTANCE_INCHES, granularity = 2)
         #time.sleep(duration)
         #self.movehub.vision_sensor.unsubscribe(Callbacks.visionColorDistance)
+
+    def testButton(self, duration: int = 60):
+        self.movehub.button.subscribe(Callbacks.button)
 
 
 
@@ -78,36 +84,28 @@ class Vernie:
     
 
 
-    """@staticmethod
-    def visionDistance(distance):
-        # Distance multiplied by 2.54 to convert inches to cm
-        print("Distance: " + str(round(distance*2.54, 2))
-        if distance <= 5:
-            Vernie.moveBackwards()
-        else:
-            Vernie.moveForwards()"""
+    
 
 # Get BT-Connection to Move Hub
-conn = get_connection_bluegiga(hub_name='Move Hub')
+conn = get_connection_bluegiga(hub_name='Move Hub PIT01')
 #conn = get_connection_auto(MoveHub.DEFAULT_NAME)
 
 try:
     hub = MoveHub(conn)
     vernie = Vernie(hub, turnAngle=500)
-    """vernie.moveForwards()
-    vernie.turnLeft()
-    vernie.moveBackwards()
-    vernie.turnRight()
-    vernie.moveForwards()"""
     demo = FeatureDemo(hub)
-    demo.testVision(duration=300)
     goOn = True
-    while goOn:
-        vernie.moveForwards()
-
-    while goOn == False:
-        vernie.turnLeft()
-        goOn = True
+    pressed = 0
+    #mit Button stoppen
+    while pressed == 0:
+        demo.testButton(duration=300)
+        demo.testVision(duration=300)
+        if goOn:
+            vernie.moveForwards()
+        #vor einer Wand nach links drehen
+        else:
+            vernie.turnLeft()
+        
         #time.sleep(1)
     #Callbacks.testVision()
     #vernie.callback()
