@@ -169,52 +169,21 @@ try:
     hub = MoveHub(conn)
     vernie = Vernie(hub, turnAngle=500)
     print("Begin of operation")
+    a = 1
+    while a != 0:
+        if keyboard.is_pressed('w'):
+            vernie.hub.motor_AB.timed(2,1,1)
+        elif keyboard.is_pressed('s'):
+            vernie.hub.motor_AB.timed(2,-1,-1)
+        elif keyboard.is_pressed('d'):
+            vernie.hub.motor_AB.timed(0.3,0.2,-0.2)
+        elif keyboard.is_pressed('a'):
+            vernie.hub.motor_AB.timed(0.3,-0.2,0.2)
+        elif keyboard.is_pressed('Esc'):
+            a = a * 0
+        else:
+            a = a 
 
-    a = -1
-    b = -1
-    c = -1
-    d = -1
 
-    def Timer():
-        global a
-        global b     
-        global c
-        global d
-        Timers = True
-        while Timers == True:
-            a = a -1
-            b= b-1
-            c= c-1
-            d= d-1
-            time.sleep(1)
-
-    Timer()
-    def Loop1():
-        Start = True
-        while Start == True:
-            if keyboard.is_pressed('w'):
-                a =a + 1
-            elif keyboard.is_pressed('s'):
-                b =b + 1
-            elif keyboard.is_pressed('a'):
-                c =c + 1
-            elif keyboard.is_pressed('d'):
-                d =d + 1
-            elif keyboard.is_pressed('Esc'):
-                Start = False
-                Timer = False
-
-            if a >=0 :
-                vernie.hub.motor_AB.timed(1,1,1)
-            if b>= 0:
-                vernie.hub.motor_AB.timed(2,-1,-1)
-            if c >=0 :
-                vernie.hub.motor_AB.timed(0.3,0.2,-0.2)
-            if d >=0 :
-                vernie.hub.motor_AB.timed(0.3,-0.2,0.2)
-            
-    
-    Loop1()
-    
 finally:
     hub.disconnect()
