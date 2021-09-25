@@ -87,7 +87,7 @@ class Vernie:
     
 
 # Get BT-Connection to Move Hub
-conn = get_connection_bluegiga(hub_name='Move Hub')
+conn = get_connection_bluegiga(hub_name='Move Hub PIT01')
 #conn = get_connection_auto(MoveHub.DEFAULT_NAME)
 
 try:
