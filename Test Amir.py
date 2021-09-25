@@ -173,7 +173,7 @@ class Vernie:
 
 
 # Get BT-Connection to Move Hub
-conn = get_connection_bluegiga(hub_name='Move Hub')
+conn = get_connection_bluegiga(hub_mac='00:16:53:BA:44:01')
 #conn = get_connection_auto(MoveHub.DEFAULT_NAME)
 
 try:
