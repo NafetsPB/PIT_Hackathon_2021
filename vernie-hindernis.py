@@ -96,13 +96,13 @@ try:
     demo = FeatureDemo(hub)
     goOn = True
     pressed = 0
-    
+    #mit Button stoppen
     while pressed == 0:
         demo.testButton(duration=300)
         demo.testVision(duration=300)
         if goOn:
             vernie.moveForwards()
-
+        #vor einer Wand nach links drehen
         else:
             vernie.turnLeft()
         
