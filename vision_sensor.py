@@ -4,15 +4,20 @@ from pylgbst.peripherals import VisionSensor, COLORS,LEDRGB,COLOR_BLACK,COLOR_RE
 import time
 
 def callback_rgb(r, g, b):
+    global hub
     print("Color: R = %s G = %s B = %s" % (r, g, b))
     if r in range(70,80) and g in range(50,60) and b in range(55,65):
         print("RED")
+        hub.motor_AB.timed(0.5,-0.5)    
     elif r in range(80,100) and g in range(80,100) and b in range(150,160):
         print("YELLOW")
+        hub.motor_B.timed(0.5,0.5)  
     elif r in range(10,20) and g in range (40,50) and b in range(85,95):
         print("BLUE")
+        hub.motor_A.timed(0.5,0.5)  
     elif r in range(20,35) and g in range(60,80)  and b in range(120,130):
         print("GREEN")
+        hub.motor_AB.timed(0.5,0.5)  
     #elif r in range(17,21) and g in range(21,25) and b in range(33,27):
         #print("ORANGE")
     elif r in range(90,110) and g in range(90, 110) and b in range(110,130):
