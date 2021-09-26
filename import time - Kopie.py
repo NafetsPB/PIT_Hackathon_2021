@@ -170,13 +170,22 @@ try:
     vernie = Vernie(hub, turnAngle=500)
     print("Begin of operation")
     a = 1
+    speed = 0.5
     while a != 0:
         if keyboard.is_pressed('w'):
-            hub.motor_AB.start_speed(1, 1)
+            hub.motor_AB.start_speed(speed, speed)
+            if keyboard.is_pressed('a+w'):
+                hub.motor_AB.start_speed(speed*0.5,speed*1.5)
+            elif keyboard.is_pressed('d+w'):
+                hub.motor_AB.start_speed(speed*1.5,speed*0.5)
             if not keyboard.is_pressed('w'):
                 hub.motor_AB.stop()
         elif keyboard.is_pressed('s'):
             hub.motor_AB.start_speed(-1,-1)
+            if keyboard.is_pressed('a+s'):
+                hub.motor_AB.start_speed(-speed*0.5,-speed*1.5)
+            elif keyboard.is_pressed('d+s'):
+                hub.motor_AB.start_speed(-speed*1.5,-speed*0.5)
             if not keyboard.is_pressed('s'):
                 hub.motor_AB.stop()
         elif keyboard.is_pressed('d'):
@@ -187,6 +196,11 @@ try:
             hub.motor_AB.start_speed(-0.5, 0.5)
             if not keyboard.is_pressed('a'):
                 hub.motor_AB.stop()
+        elif keyboard.is_pressed('j'):
+            hub.motor_external.angled(25,0.2)
+        elif keyboard.is_pressed('h'):
+            hub.motor_external.angled(-25,0.2)
+
         elif keyboard.is_pressed('Esc'):
             a = a * 0
         else:
