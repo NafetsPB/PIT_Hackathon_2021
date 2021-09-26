@@ -197,9 +197,9 @@ try:
             if not keyboard.is_pressed('a'):
                 hub.motor_AB.stop()
         elif keyboard.is_pressed('j'):
-            hub.motor_external.angled(25,0.2)
+            hub.motor_external.angled(20,0.2)
         elif keyboard.is_pressed('h'):
-            hub.motor_external.angled(-25,0.2)
+            hub.motor_external.angled(-20,0.2)
 
         elif keyboard.is_pressed('Esc'):
             a = a * 0
