@@ -7,7 +7,6 @@ from random import randrange
 import keyboard 
 
 
-
 ###Angegebene Parametern ,die aus Vernie wir sammeln können.
 class Callbacks:
 
@@ -169,29 +168,59 @@ try:
     hub = MoveHub(conn)
     vernie = Vernie(hub, turnAngle=500)
     print("Begin of operation")
-    a = 1
-    while a != 0:
-        if keyboard.is_pressed('w'):
-            hub.motor_AB.start_speed(1, 1)
-            if not keyboard.is_pressed('w'):
-                hub.motor_AB.stop()
-        elif keyboard.is_pressed('s'):
-            hub.motor_AB.start_speed(-1,-1)
-            if not keyboard.is_pressed('s'):
-                hub.motor_AB.stop()
-        elif keyboard.is_pressed('d'):
-            hub.motor_AB.start_speed(0.5,-0.5)
-            if not keyboard.is_pressed('d'):
-                hub.motor_AB.stop()
-        elif keyboard.is_pressed('a'):
-            hub.motor_AB.start_speed(-0.5, 0.5)
-            if not keyboard.is_pressed('a'):
-                hub.motor_AB.stop()
-        elif keyboard.is_pressed('Esc'):
-            a = a * 0
-        else:
-            a = a 
 
+    keyboard.add_hotkey('ctrl+shift+a', print("es funktioniert") , args=('triggered', 'hotkey'))
+
+    a = -1
+    b = -1
+    c = -1
+    d = -1
+
+    #def Timer():
+        #Timers = True
+        #while Timers == True:
+            #a = a -1
+            #b= b-1
+            #c= c-1
+            #d= d-1
+            #time.sleep(1)
+
+
+    #Timer()
+    def Loop1():
+        global a
+        global b
+        global c
+        global d
+        Start = True
+        while Start == True:
+            if keyboard.is_pressed('w'):
+                a =a + 1000
+            elif keyboard.is_pressed('s'):
+                b =b + 1000
+            elif keyboard.is_pressed('a'):
+                c =c + 100
+            elif keyboard.is_pressed('d'):
+                d =d + 100
+            elif keyboard.is_pressed('Esc'):
+                Start = False
+                #Timer = False
+
+            if a >=0 :
+                vernie.hub.motor_AB.angled(a,1,1)
+                a = 0
+            if b>= 0:
+                vernie.hub.motor_AB.angled(b,-1,-1)
+                b = 0
+            if c >=0 :
+                vernie.hub.motor_AB.angled(c,0.2,-0.2)
+                c = 0
+            if d >=0 :
+                vernie.hub.motor_AB.angled(d,-0.2,0.2)
+                d = 0
+            
+    
+    Loop1()
 
 finally:
     hub.disconnect()

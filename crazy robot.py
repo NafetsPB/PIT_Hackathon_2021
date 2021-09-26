@@ -5,6 +5,7 @@ from pylgbst.hub import MoveHub
 from pylgbst.peripherals import COLOR_BLACK, COLOR_BLUE, COLOR_RED, TiltSensor, VisionSensor, Voltage, COLORS
 from random import randrange
 import keyboard 
+import random
 
 
 
@@ -169,28 +170,21 @@ try:
     hub = MoveHub(conn)
     vernie = Vernie(hub, turnAngle=500)
     print("Begin of operation")
-    a = 1
-    while a != 0:
-        if keyboard.is_pressed('w'):
-            hub.motor_AB.start_speed(1, 1)
-            if not keyboard.is_pressed('w'):
-                hub.motor_AB.stop()
-        elif keyboard.is_pressed('s'):
-            hub.motor_AB.start_speed(-1,-1)
-            if not keyboard.is_pressed('s'):
-                hub.motor_AB.stop()
-        elif keyboard.is_pressed('d'):
-            hub.motor_AB.start_speed(0.5,-0.5)
-            if not keyboard.is_pressed('d'):
-                hub.motor_AB.stop()
-        elif keyboard.is_pressed('a'):
-            hub.motor_AB.start_speed(-0.5, 0.5)
-            if not keyboard.is_pressed('a'):
-                hub.motor_AB.stop()
-        elif keyboard.is_pressed('Esc'):
-            a = a * 0
-        else:
-            a = a 
+    begin = True
+    while begin:
+        a = random.random()
+        if 0.6 > a >= 0.4:
+            vernie.turnLeft()
+        if a >= 0.8:
+                vernie.moveForwards(1)
+        if 0.8> a >=0.6 :
+                vernie.turnRight()
+        if a <= 0.3:
+            vernie.moveBackwards(1)
+        if keyboard.is_pressed("Esc"):
+            begin = False
+        time.sleep(0.5)
+    
 
 
 finally:
